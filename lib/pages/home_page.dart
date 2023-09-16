@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_map_tracker/controllers/postos_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // ignore: must_be_immutable
@@ -29,7 +31,12 @@ class _HomePageState extends State <HomePage> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-      body: _buildBody(),
+      body:ChangeNotifierProvider<PostosController>(
+        create: (context) => PostosController(),
+        child: Builder(builder:(context){
+             return _buildBody();
+        })
+      )
     );
   }
 
@@ -38,14 +45,21 @@ class _HomePageState extends State <HomePage> {
   }
 
   Widget _getMap() {
+  return Consumer<PostosController>(
+    builder: (context, local, child) {
       return GoogleMap(
         initialCameraPosition: _cameraPosition!,
         mapType: MapType.normal,
-        onMapCreated: (GoogleMapController controller){
-          if(!_googleMapController.isCompleted){
-              _googleMapController.complete(controller);
+        myLocationEnabled: true,
+        markers: local.markers,
+        onMapCreated: (GoogleMapController controller) {
+          if (!_googleMapController.isCompleted) {
+            _googleMapController.complete(controller);
           }
         },
       );
-  }
+    },
+  );
+}
+
 }
