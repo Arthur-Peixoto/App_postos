@@ -17,6 +17,10 @@ class PostosController extends ChangeNotifier {
     context = ctx;
   }
 
+  void setMapsController(GoogleMapController controller) {
+    _mapsController = controller;
+  }
+
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosicao();

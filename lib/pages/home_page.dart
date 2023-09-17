@@ -25,7 +25,7 @@ class _HomePageState extends State <HomePage> {
   }
 
   _init(){
-    _cameraPosition = CameraPosition(target: LatLng(11.576262, 104.92222), zoom: 15
+    _cameraPosition = CameraPosition(target: LatLng(context.read<PostosController>().lat, context.read<PostosController>().long), zoom: 15
     );
   }
   @override
@@ -52,10 +52,13 @@ class _HomePageState extends State <HomePage> {
         mapType: MapType.normal,
         myLocationEnabled: true,
         markers: local.markers,
-        onMapCreated: (GoogleMapController controller) {
+        onMapCreated: (GoogleMapController controller) async {
           if (!_googleMapController.isCompleted) {
             _googleMapController.complete(controller);
           }
+          local.setMapsController(controller);
+          local.getPosicao();
+          local.loadPostos();
         },
       );
     },

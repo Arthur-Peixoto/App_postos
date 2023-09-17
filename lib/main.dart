@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_map_tracker/pages/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:google_map_tracker/controllers/postos_controller.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp(homeScreen: HomePage(),));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PostosController()),
+      ],
+      child: const MyApp(homeScreen: HomePage()),
+    ),
+  );
 }
+
 
 class MyApp extends StatefulWidget {
   final Widget? homeScreen;
