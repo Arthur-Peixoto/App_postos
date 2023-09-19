@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_map_tracker/pages/home_page.dart';
 import 'package:google_map_tracker/repositories/postos_repositories.dart';
 import 'package:google_map_tracker/widgets/postos_detalhes.dart';
 

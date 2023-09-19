@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "555824350231",
+    "project_id": "apppostosnovo",
+    "storage_bucket": "apppostosnovo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555824350231:android:b7ee28097ce2709cd24852",
+        "android_client_info": {
+          "package_name": "com.example.google_map_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXIdrnEvvfGp5dLcVSHjoD01IxtdmcpYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

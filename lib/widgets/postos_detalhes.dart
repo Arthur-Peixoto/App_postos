@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_map_tracker/models/posto.dart';
 
+// ignore: must_be_immutable
 class PostoDetalhes extends StatelessWidget {
   Posto posto;
   PostoDetalhes({Key? key, required this.posto}) : super(key: key);
