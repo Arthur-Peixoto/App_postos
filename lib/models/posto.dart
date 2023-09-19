@@ -4,6 +4,8 @@ class Posto {
   String foto;
   double latitude;
   double longitude;
+  double precoDiesel;
+  double precoGasolina;
 
   Posto({
     required this.nome,
@@ -11,5 +13,7 @@ class Posto {
     required this.foto,
     required this.latitude,
     required this.longitude,
+    required this.precoDiesel,
+    required this.precoGasolina
   });
 }

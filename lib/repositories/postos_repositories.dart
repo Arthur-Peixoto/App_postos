@@ -10,6 +10,8 @@ class PostosRepository extends ChangeNotifier {
           'https://lh5.googleusercontent.com/p/AF1QipP_xnSi5-sp9slSuMpSx-JlmvwvHGL1VJ_JcOGX=w408-h306-k-no',
       latitude: -25.4361979,
       longitude: -49.2624613,
+      precoDiesel: 4.96,
+      precoGasolina: 5.50,
     ),
     Posto(
       nome: 'Auto Posto Rodoviária',
@@ -18,6 +20,8 @@ class PostosRepository extends ChangeNotifier {
           'https://lh5.googleusercontent.com/p/AF1QipPnfQSsnvt6-VAxF-fUQ0onQCeRktJptOvSL_9F=w408-h306-k-no',
       latitude: -25.435538,
       longitude: -49.2623809,
+      precoDiesel: 4.96,
+      precoGasolina: 5.50,
     ),
     Posto(
       nome: 'Auto Posto Nilo Cairo',
@@ -26,6 +30,8 @@ class PostosRepository extends ChangeNotifier {
           'https://lh5.googleusercontent.com/p/AF1QipOB2w7C9Q_NTblNRhcxJtN3-s4_gSjHI1rs5cSM=w408-h544-k-no',
       latitude: -25.435260,
       longitude: -49.2620769,
+      precoDiesel: 4.96,
+      precoGasolina: 5.50,
     ),
   ];
 
