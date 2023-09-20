@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             }
             local.setMapsController(controller);
             local.getPosicao();
-            local.loadPostos();
+            local.loadPostosFromFirebase();
           },
         );
       },

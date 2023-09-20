@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_map_tracker/repositories/postos_repositories.dart';
 import 'package:google_map_tracker/widgets/postos_detalhes.dart';
+import '../models/postos_repository.dart';
 
 class PostosController extends ChangeNotifier {
   double lat = 0.0;
@@ -11,6 +11,7 @@ class PostosController extends ChangeNotifier {
   Set<Marker> markers = Set<Marker>();
   late GoogleMapController _mapsController;
   BuildContext? context;
+  PostosRepository _postosRepository = PostosRepository();
 
   setContext(BuildContext ctx) {
     context = ctx;
@@ -23,20 +24,20 @@ class PostosController extends ChangeNotifier {
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosicao();
-    loadPostos();
+    loadPostosFromFirebase();
   }
 
-  loadPostos() {
-    final postos = PostosRepository().postos;
-    postos.forEach((posto) async {
+  loadPostosFromFirebase() async {
+    final postos = await _postosRepository
+        .getPostosFromFirebase(); // Use await para obter os postos
+    markers.clear(); // Limpe os marcadores antes de adicionar os novos
+
+    for (final posto in postos) {
       markers.add(
         Marker(
           markerId: MarkerId(posto.nome),
-          position: LatLng(posto.latitude, posto.longitude),
-          icon: await BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(),
-            'images/posto.png',
-          ),
+          position:
+              LatLng(posto.localizacao.latitude, posto.localizacao.longitude),
           onTap: () => {
             showModalBottomSheet(
               context: context!,
@@ -45,7 +46,7 @@ class PostosController extends ChangeNotifier {
           },
         ),
       );
-    });
+    }
     notifyListeners();
   }
 

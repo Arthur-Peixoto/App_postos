@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_map_tracker/models/posto.dart';
+import 'package:google_map_tracker/models/postos_repository.dart';
 
 // ignore: must_be_immutable
 class PostoDetalhes extends StatelessWidget {

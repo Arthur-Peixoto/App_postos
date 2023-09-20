@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'auth_screen.dart';
@@ -53,7 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
 
         // Atualize o nome completo do usuário.
-        await userCredential.user!.updateProfile(displayName: _fullName);
+        await userCredential.user!.updateDisplayName(_fullName);
 
         // Registro bem-sucedido, redirecione para a próxima tela (por exemplo, a página inicial).
         Navigator.of(context).pushReplacement(
