@@ -38,6 +38,10 @@ class PostosController extends ChangeNotifier {
           markerId: MarkerId(posto.nome),
           position:
               LatLng(posto.localizacao.latitude, posto.localizacao.longitude),
+              icon: await BitmapDescriptor.fromAssetImage(
+            ImageConfiguration(),
+            'images/posto-icon.png',
+          ),
           onTap: () => {
             showModalBottomSheet(
               context: context!,
