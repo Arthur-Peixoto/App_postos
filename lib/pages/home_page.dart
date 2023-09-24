@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:google_map_tracker/pages/postos_page.dart';
+import 'package:google_map_tracker/pages/profile_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_map_tracker/controllers/postos_controller.dart';
@@ -72,7 +74,26 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildBody() {
-    return _getMap();
+    switch (_currentIndex) {
+      case 0:
+        return _buildProfilePage(); // Página de perfil
+      case 1:
+        return _getMap(); // Página de postos (mapa)
+      case 2:
+        return _buildFavoritosPage(); // Página de favoritos
+      default:
+        return _getMap(); // Página de perfil como padrão
+    }
+  }
+
+  Widget _buildProfilePage() {
+    // Retorna a página de perfil (substitua ProfilePage() pelo seu Widget de perfil)
+    return ProfilePage();
+  }
+
+  Widget _buildFavoritosPage() {
+    // Retorna a página de favoritos (substitua FavoritosPage() pelo seu Widget de favoritos)
+    return PostosPage();
   }
 
   Widget _getMap() {
