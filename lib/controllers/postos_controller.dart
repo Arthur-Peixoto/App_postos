@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_map_tracker/pages/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_map_tracker/widgets/postos_detalhes.dart';
 import '../models/postos_repository.dart';
@@ -38,13 +39,13 @@ class PostosController extends ChangeNotifier {
           markerId: MarkerId(posto.nome),
           position:
               LatLng(posto.localizacao.latitude, posto.localizacao.longitude),
-              icon: await BitmapDescriptor.fromAssetImage(
-            ImageConfiguration(),
-            'images/posto-icon.png',
-          ),
+              //icon: await BitmapDescriptor.fromAssetImage(
+            //ImageConfiguration(),
+            //'images/posto-icon.png',
+          //),
           onTap: () => {
             showModalBottomSheet(
-              context: context!,
+              context: appKey.currentState!.context,
               builder: (context) => PostoDetalhes(posto: posto),
             )
           },
