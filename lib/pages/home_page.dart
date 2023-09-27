@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Completer<GoogleMapController> _googleMapController = Completer();
   CameraPosition? _cameraPosition;
-  int _currentIndex = 0; // Índice atual da BottomNavigationBar
+  int _currentIndex = 1; // Índice atual da BottomNavigationBar
 
   @override
   void initState() {

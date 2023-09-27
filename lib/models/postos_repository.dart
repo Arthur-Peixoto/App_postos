@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Posto {
+  final String id; // Adicionando o campo de ID
   final String nome;
   final GeoPoint localizacao;
   final String endereco;
@@ -9,6 +10,7 @@ class Posto {
   final double precoGasolina;
 
   Posto({
+    required this.id, // Certifique-se de passar o ID ao criar um objeto Posto
     required this.nome,
     required this.localizacao,
     required this.endereco,
@@ -17,6 +19,7 @@ class Posto {
     required this.precoGasolina,
   });
 }
+
 
 class PostosRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -30,13 +33,14 @@ class PostosRepository {
       for (final QueryDocumentSnapshot document in querySnapshot.docs) {
         final data = document.data() as Map<String, dynamic>;
         final posto = Posto(
-          nome: data['name'] ?? '',
-          localizacao: data['localizacao'] ?? GeoPoint(0.0, 0.0),
-          endereco: data['endereco'] ?? '',
-          foto: data['foto'] ?? '',
-          precoDiesel: data['precoDiesel'] ?? 0.0,
-          precoGasolina: data['precoGasolina'] ?? 0.0,
-        );
+        id: document.id, // Usando o ID do Firestore como ID do posto
+        nome: data['name'] ?? '',
+        localizacao: data['localizacao'] ?? GeoPoint(0.0, 0.0),
+        endereco: data['endereco'] ?? '',
+        foto: data['foto'] ?? '',
+        precoDiesel: data['precoDiesel'] ?? 0.0,
+        precoGasolina: data['precoGasolina'] ?? 0.0,
+      );
 
         postos.add(posto);
       }

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'auth_screen.dart';
 
@@ -17,9 +18,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
-  String _fullName = ''; // Adicione o campo para o nome completo.
-  File? _imageFile; // Para armazenar a imagem de perfil selecionada.
-  Image? _previewImage; // Para mostrar a visualização da imagem de perfil.
+  String _fullName = '';
+  List<String> _favoritos = []; // Campo "favoritos" como um array
+  File? _imageFile;
+  Image? _previewImage;
 
   @override
   void initState() {
@@ -51,8 +53,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           await storageRef.putFile(_imageFile!);
         }
 
-        // Atualize o nome completo do usuário.
-        await userCredential.user!.updateDisplayName(_fullName);
+        // Insira o usuário no Firestore com o UID como ID do documento e inclua os favoritos.
+        await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+          'foto': storageRef.fullPath,
+          'loginID': userCredential.user!.uid,
+          'nomecompleto': _fullName,
+          'favoritos': _favoritos, // Campo "favoritos"
+        });
 
         // Registro bem-sucedido, redirecione para a próxima tela (por exemplo, a página inicial).
         Navigator.of(context).pushReplacement(
@@ -62,7 +69,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         );
       } catch (e) {
-        // Trate erros de registro, como email já em uso ou senha fraca.
         print('Erro de registro: $e');
         _showErrorDialog(
             'Erro de registro. Verifique seus dados e tente novamente.');
@@ -81,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop(); // Fecha o diálogo.
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -121,10 +127,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 )
-              : Container(), // Mostra a imagem de perfil selecionada ou nada.
+              : Container(),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5), // Fundo semitransparente
+              color: Colors.white.withOpacity(0.5),
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Center(
@@ -160,8 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white
-                              .withOpacity(0.5), // Fundo semitransparente
+                          color: Colors.white.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: TextFormField(
@@ -185,8 +190,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white
-                              .withOpacity(0.5), // Fundo semitransparente
+                          color: Colors.white.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: TextFormField(
